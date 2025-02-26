@@ -67,18 +67,21 @@ if(yourName == myName  &&  yourPassword == myPassword)
    
 var yourGrade = prompt("Enter your Marsks and check Grade");
 var Check06 = parseInt(yourGrade.trim());
-if(Check06 >= 90)
+if(Check06 >= 90 && Check06 <= 100)
 { 
     document.getElementById("big15").innerHTML = `Ans: Excellent you grade is "A"`;
-}else if(Check06 >= 80){
+}else if(Check06 >= 80 && Check06 <= 89){
     document.getElementById("big16").innerHTML = `Ans: Verygood you grade is "B";`
-}else if(Check06 >= 70){
+}else if(Check06 >= 70  && Check06 <= 79){
     document.getElementById("big17").innerHTML = `Ans: Good you grade is "C";`
-}else if(Check06 >= 60){
+}else if(Check06 >= 60 && Check06 <= 69){
     document.getElementById("big18").innerHTML = `Ans: Not bad you grade is "D";`
 }else if(Check06 <= 59){
     document.getElementById("big19").innerHTML = `Ans: You are Fail but (Failure is not the opposite of success. It is Part of Success) "F";` 
-}else{
+}else if(Check06 > 100){
+    document.getElementById("big0019").innerHTML = `INVALID NUMBER;` 
+}
+else{
     document.getElementById("big019").innerHTML = `Empty Prompt!`;
 }
 
