@@ -114,9 +114,7 @@ var products = [
 
 ///2: Use filter to get all products that have variations in black color
 
-let filterProduct = products.filter(f => {
- f.variations.color === "black";
-});
+let filterProduct = products.filter(f => f.variations.color === "black");
 console.log(filterProduct);
 
 ///
