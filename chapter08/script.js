@@ -1,4 +1,4 @@
-var products = [
+let products = [
     {
       id: 101,
       title: "Sony LED 40 inch",
@@ -106,7 +106,7 @@ var products = [
   ];
   ////1: Use map to get an array of product titles
 
-  let productTitle = products.map( p => p.title);
+  let productTitle = products.map(p => p.title);
     console.log(productTitle);
 
 ///////////
@@ -114,7 +114,17 @@ var products = [
 
 ///2: Use filter to get all products that have variations in black color
 
-let filterProduct = products.filter(f => f.variations.color === "black");
+let filterProduct = products.filter(f => {
+ f.variations.filter( varfil => varfil.color === "black");
+ return f.variations
+});
 console.log(filterProduct);
+///
+
+
+////3: Use reduce to calculate the total stock of all products
+
+let stockProduct = products.reduce( (acc , curr) => acc + curr.variations.reduce((varacc, varcurr) => varacc + varcurr.quantity ,0) ,0);
+console.log("TotalStockProduct:" , stockProduct);
 
 ///
