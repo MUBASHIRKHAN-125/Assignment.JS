@@ -19,7 +19,7 @@ let products = [
         },
         {
           id: 2,
-          user: "Zubair",
+          user: "john",
           rating: 4.5,
           title: "Very Good Product",
           comments: "zubair It is a very good product ....",
@@ -94,7 +94,7 @@ let products = [
         },
         {
           id: 2,
-          user: "Zubair",
+          user: "jh",
           rating: 3.0,
           title: "Very Good Product",
           comments: "zubair It is a very good product ....",
@@ -114,17 +114,34 @@ let products = [
 
 ///2: Use filter to get all products that have variations in black color
 
-let filterProduct = products.filter(f => {
- f.variations.filter( varfil => varfil.color === "black");
- return f.variations
-});
+let filterProduct = products.filter(f => f.variations.filter(vari => vari.color === "black"));
 console.log(filterProduct);
 ///
 
 
 ////3: Use reduce to calculate the total stock of all products
-
-let stockProduct = products.reduce( (acc , curr) => acc + curr.variations.reduce((varacc, varcurr) => varacc + varcurr.quantity ,0) ,0);
+let stockProduct = products.reduce( (acc , curr) => {
+ return acc + curr.variations.reduce((varacc, varcurr) => varacc + varcurr.quantity ,0) 
+},0)
 console.log("TotalStockProduct:" , stockProduct);
 
 ///
+//// 4: Use map and reduce to get the average rating of each product
+let averageRatings = products.map(p => {
+let proStatus = p.reviews.filter(revfil => revfil.status === true);
+let sumRating = proStatus.reduce((sum , rev) => sum + rev.rating ,0);
+let avgRating = sumRating / proStatus.length;
+return{title : p.title,avgRating : avgRating}
+});
+console.log(averageRatings);
+//////
+
+
+// Use map and reduce to get the average rating of each product
+
+
+// Consider only the reviews where status is true.
+// Calculate the average rating for each product.
+// Sample Output: [ { title: "Sony LED 40 inch", averageRating: 4.5 }, { title: "Mobile", averageRating: 4.0 }, { title: "Bike", averageRating: 4.0 } ]
+
+
