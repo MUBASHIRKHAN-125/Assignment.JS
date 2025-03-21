@@ -114,7 +114,7 @@ let products = [
 
 ///2: Use filter to get all products that have variations in black color
 
-let filterProduct = products.filter(f => f.variations.filter(vari => vari.color === "black"));
+let filterProduct = products.filter(f => f.variations.some(colorfil => colorfil.color === "black"));
 console.log(filterProduct);
 ///
 
@@ -136,12 +136,12 @@ return{title : p.title,avgRating : avgRating}
 console.log(averageRatings);
 //////
 
+////5: Use filter to get products that have at least one review with a rating of 5.0
+let filterRating = products.filter(filpro => filpro.reviews.some(revfil => revfil.rating >= 5.0));
+console.log(filterRating);
+/////
 
-// Use map and reduce to get the average rating of each product
 
 
-// Consider only the reviews where status is true.
-// Calculate the average rating for each product.
-// Sample Output: [ { title: "Sony LED 40 inch", averageRating: 4.5 }, { title: "Mobile", averageRating: 4.0 }, { title: "Bike", averageRating: 4.0 } ]
 
 
