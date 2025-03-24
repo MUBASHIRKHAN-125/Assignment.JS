@@ -116,16 +116,29 @@ let products = [
 
 let filterProduct = products.filter(f => f.variations.some(colorfil => colorfil.color === "black"));
 console.log(filterProduct);
+// let filterProductsByColor = products.filter((product) => {
+  //     for (let i = 0; i < product.variations.length; i++) {
+    //       if (product.variations[i].color === "black") {
+      //         return true;
+      //       }
+      //     }
+      //   });
+      // console.log(filterProductsByColor);
+      
+// let filterProductsByColor = products.filter(
+//   (product) =>
+//     product.variations.find((variation) => variation.color === "black")
+// );
+// console.log(filterProductsByColor);
 ///
-
 
 ////3: Use reduce to calculate the total stock of all products
 let stockProduct = products.reduce( (acc , curr) => {
  return acc + curr.variations.reduce((varacc, varcurr) => varacc + varcurr.quantity ,0) 
 },0)
 console.log("TotalStockProduct:" , stockProduct);
-
 ///
+
 //// 4: Use map and reduce to get the average rating of each product
 let averageRatings = products.map(p => {
 let proStatus = p.reviews.filter(revfil => revfil.status === true);
@@ -140,6 +153,49 @@ console.log(averageRatings);
 let filterRating = products.filter(filpro => filpro.reviews.some(revfil => revfil.rating >= 5.0));
 console.log(filterRating);
 /////
+
+////6: Use map to format variations with product name
+let productName = products.map(product => {
+  return{
+    title: product.title,
+    variations: product.variations.map(varpro => {
+    return{
+       color: varpro.color,
+        Price: varpro.price,
+        Quantity: varpro.quantity
+      };
+  })};
+});
+console.log(productName);
+//////
+
+///7: Use reduce to get the total revenue if all items were sold
+let totalRevenue = products.reduce((acc , totalrev) => {
+ let rettotal = totalrev.variations.reduce((pri ,mul) => {
+ return pri + (mul.price * mul.quantity);
+ },0);
+return acc + rettotal
+},0);
+console.log("Total Revenue:" , totalRevenue);
+////
+
+///9: Use map to get a summary of each product with total variations and total reviews
+let prosummary = products.map( summary => {
+return{
+title: summary.title,
+variations: summary.variations.length,
+reviews: summary.reviews.length,
+};
+});
+console.log("Product Summary:" , prosummary);
+////
+
+
+
+
+
+
+
 
 
 
