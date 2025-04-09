@@ -201,7 +201,7 @@ console.log("Product Summary:", prosummary);
 //10: Use reduce to find the product with the highest total stock
 let sumqua = products.reduce((sumqu , currqua) => {
   let retsum =  currqua.variations.reduce((add,curadd) => add + curadd.quantity ,0)
-  if(retsum > sumqu){
+  if(retsum > sumqu.totalstock){
  return {
   title : currqua.title,
   totalstock : retsum
