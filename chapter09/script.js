@@ -30,7 +30,7 @@ const products = [
                 price: 50000,
                 quantity: 1,
                 warranty: "2 years",
-                discount: 5,
+                discount: 50,
                 isAvailable: true
             },
             {
@@ -70,7 +70,7 @@ const products = [
                 title: "Awesome",
                 comment: "I’m impressed by the quality.",
                 date: "2021-02-05",
-                approved: false,
+                approved: true,
                 likes: 5,
                 verifiedPurchase: false
             }
@@ -88,17 +88,65 @@ console.log(solve1);
 
 // Q2. Display all available colors for active products.
 
-let solve2 = products.map(c => c.variations.filter(check => check.isAvailable).map( col => col.color));
+let solve2 = products.map(c => c.variations.filter(check => check.isAvailable).map(col => col.color));
 console.log(solve2)
 // ///////--------------------////////////
 
 // 3. Count the total quantity of all variations that are currently available.
 
-let solve3 = products.reduce((total , pro) => {
-let storeProduct = pro.variations.filter(p => p.isAvailable).reduce((acc , curr) => acc + curr.quantity , 0)
-return total + storeProduct;
-},0)
-console.log(solve3);
+let solve3 = products.reduce((total, pro) => {
+    let storeProduct = pro.variations.filter(p => p.isAvailable).reduce((acc, curr) => acc + curr.quantity, 0);
+    return total + storeProduct;
+}, 0)
+console.log(`currently available product: ${solve3}`);
 // ///////--------------------////////////
+
+// Q4. List all products that have at least one discounted variation.
+
+let proDiscount = products.map(p => p.variations.filter(f => f.discount));
+console.log(proDiscount);
+// ///////--------------------////////////
+
+// Q5. Calculate and display the effective price (after discount) for each variation.
+
+let discount = products.map(m => m.variations.map(totalDis => {
+
+    let discountPercent = totalDis.discount || 0;
+    let discountAmount = (totalDis.price * discountPercent) / 100;
+    let finalPrice = totalDis.price - discountAmount;
+    return {
+        color: totalDis.color,
+        originalPrice: totalDis.price,
+        quantity: totalDis.quantity,
+        warranty: totalDis.warranty,
+        discount: discountAmount,
+        finalPrice: finalPrice,
+    }
+
+}));
+
+console.log(discount);
+/////----------//////////////////
+// Q6. Find the variation with the highest discount across all products.
+
+let highestDis = products.map(m => m.variations.reduce((acc, curr) => {
+    let checkVariation = curr.discount > acc ? curr.discount : acc;
+
+    return  checkVariation;
+}, 0)
+);
+console.log(`Highest Discount: ${highestDis}`);
+
+////////////---------------///////////
+// Q7. Display the email of users who left approved reviews with more than 3 likes.
+let app = products.flatMap(m => m.reviews.filter(f => f.approved && f.likes > 3));
+let userEmails = app.map(e => e.user.email)
+console.log(`user Email : ${userEmails}`);
+/////////////---------//////////////
+
+
+
+
+
 
 
