@@ -9,7 +9,7 @@ const products = [
         isActive: true,
         createdAt: "2021-01-15",
         updatedAt: "2022-10-22",
-        tags: ["LED", "Smart TV", "HD"],
+        tags: ["LED","Smart TV", "HD"],
         supplier: {
             name: "ElectroHouse",
             contact: "support@electrohouse.com"
@@ -132,7 +132,7 @@ console.log(discount);
 let highestDis = products.map(m => m.variations.reduce((acc, curr) => {
     let checkVariation = curr.discount > acc ? curr.discount : acc;
 
-    return  checkVariation;
+    return checkVariation;
 }, 0)
 );
 console.log(`Highest Discount: ${highestDis}`);
@@ -151,27 +151,27 @@ console.log(reviews);
 /////////////---------//////////////
 
 // Q9. Add a new variation with a new color and stock to a product.
-products.forEach(p => p.variations.push({color:'yellow' , quantity:10}));
+products.forEach(p => p.variations.push({ color: 'yellow', quantity: 10 }));
 let result = products.flatMap(v => v.variations)
 console.log(result);
 /////////////---------//////////////
 
 // Q10. Add a new review with location and verified purchase fields.
-products.forEach(r => r.reviews.push({ 
-                id: 1,
-                user: {
-                    name: "talha",
-                    email: "talha@gmail.com",
-                    location: "Islamabad"
-                },
-                rating: 4.0,
-                title: "Good Product",
-                comment: "Very good product for the price.",
-                date: "2021-02-06",
-                approved: true,
-                likes: 15,
-                verifiedPurchase: true
-            },
+products.forEach(r => r.reviews.push({
+    id: 1,
+    user: {
+        name: "talha",
+        email: "talha@gmail.com",
+        location: "Islamabad"
+    },
+    rating: 4.0,
+    title: "Good Product",
+    comment: "Very good product for the price.",
+    date: "2021-02-06",
+    approved: true,
+    likes: 15,
+    verifiedPurchase: true
+},
 ));
 console.log(products);
 /////////////---------//////////////
@@ -189,11 +189,55 @@ console.log(filProduct);
 
 // Q13. Create a summary for each product: name, totalStock, avgRating, supplierContact.
 
-let summary = products.map(m => ` product name: ${m.name} - supplier Contact - ${m.supplier.contact} -  total Stock: ${m.variations.reduce((acc , curr) => acc + curr.quantity ,0)} - avg Rating: ${m.reviews.reduce((acc ,curr)  =>  acc + curr.quantity ,0)/m.reviews.length}`
-)
+let summary = products.map(m => ` product name: ${m.name} - supplier Contact - ${m.supplier.contact} -  total Stock: ${m.variations.reduce((acc, curr) => acc + curr.quantity, 0)} - Avg -Rating: ${((m.reviews.reduce((acc, curr) => acc + curr.rating, 0) / m.reviews.length).toFixed(2))}}`
+);
 console.log(summary);
 
+/////////////---------//////////////
+
+// Q14. Create a function that returns a report of all suppliers with the count of products they supply.
+
+function suppliers() {
+    let res = products.reduce((acc, curr) => {
+        let suppName = curr.supplier.name;
+        acc.supplierName[suppName] = (acc.supplierName[suppName] || 0 + 1)
+        return acc;
+    }, { supplierName: {} });
+    return res;
+};
+console.log(`Supplier name: ${JSON.stringify(suppliers())}`);
+
+//-/////////////////////
+// Q15. Filter and display products reviewed by users from 'Lahore'.
+
+let userDisplay = products.flatMap(f => f.reviews.filter(e => e.user.location === "Lahore"));
+console.log(userDisplay);
+////////////-------------//////////////////
+
+// Q16. Find the top 3 products by average rating (with at least 2 reviews).
+// let topProduct = products.flatMap(m => m )
 
 
 
+//////////-------------///////////
+
+// Q17. Detect and list products where any variation has zero quantity but is marked available (data inconsistency check).
+
+
+let  listProducts = products.flatMap(f => f.variations.filter(v => v.quantity === 0  && v.isAvailable === true)) ;
+if (listProducts.length === 0) {
+  console.log("All products are consistent");
+} else {
+  console.log("Inconsistent products found:", listProducts);
+};
+
+/////////////////==================='''''''''''''''/////////
+
+// Q18. List all tags used across products without duplicates.
+
+let tag = products.flatMap(p => p.tags);
+let unique = new Set(tag);
+console.log([...unique]);
+
+//////////===============////////////////
 
