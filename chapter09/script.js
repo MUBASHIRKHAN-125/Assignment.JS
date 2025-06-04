@@ -56,7 +56,7 @@ const products = [
                 comment: "Very good product for the price.",
                 date: "2021-02-06",
                 approved: true,
-                likes: 2,
+                likes: 12,
                 verifiedPurchase: true
             },
             {
@@ -70,7 +70,7 @@ const products = [
                 title: "Awesome",
                 comment: "I’m impressed by the quality.",
                 date: "2021-02-05",
-                approved: true,
+                approved: false,
                 likes: 5,
                 verifiedPurchase: false
             }
@@ -144,7 +144,54 @@ let userEmails = app.map(e => e.user.email)
 console.log(`user Email : ${userEmails}`);
 /////////////---------//////////////
 
+// Q8. Count how many reviews are verified purchases.
 
+let reviews = products.flatMap(r => r.reviews.filter(f => f.verifiedPurchase));
+console.log(reviews);
+/////////////---------//////////////
+
+// Q9. Add a new variation with a new color and stock to a product.
+products.forEach(p => p.variations.push({color:'yellow' , quantity:10}));
+let result = products.flatMap(v => v.variations)
+console.log(result);
+/////////////---------//////////////
+
+// Q10. Add a new review with location and verified purchase fields.
+products.forEach(r => r.reviews.push({ 
+                id: 1,
+                user: {
+                    name: "talha",
+                    email: "talha@gmail.com",
+                    location: "Islamabad"
+                },
+                rating: 4.0,
+                title: "Good Product",
+                comment: "Very good product for the price.",
+                date: "2021-02-06",
+                approved: true,
+                likes: 15,
+                verifiedPurchase: true
+            },
+));
+console.log(products);
+/////////////---------//////////////
+
+// Q11. Sort products by latest updatedAt date.
+
+
+
+/////////////---------//////////////
+
+// Q12. Filter out products that are inactive or have no variations in stock.
+let filProduct = products.flatMap(f => f.variations.filter(v => v.isAvailable && v.quantity > 0));
+console.log(filProduct);
+/////////////---------//////////////
+
+// Q13. Create a summary for each product: name, totalStock, avgRating, supplierContact.
+
+let summary = products.map(m => ` product name: ${m.name} - supplier Contact - ${m.supplier.contact} -  total Stock: ${m.variations.reduce((acc , curr) => acc + curr.quantity ,0)} - avg Rating: ${m.reviews.reduce((acc ,curr)  =>  acc + curr.quantity ,0)/m.reviews.length}`
+)
+console.log(summary);
 
 
 
