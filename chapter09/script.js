@@ -9,7 +9,7 @@ const products = [
         isActive: true,
         createdAt: "2021-01-15",
         updatedAt: "2022-10-22",
-        tags: ["LED","Smart TV", "HD"],
+        tags: ["LED", "Smart TV", "HD"],
         supplier: {
             name: "ElectroHouse",
             contact: "support@electrohouse.com"
@@ -215,20 +215,20 @@ console.log(userDisplay);
 ////////////-------------//////////////////
 
 // Q16. Find the top 3 products by average rating (with at least 2 reviews).
-// let topProduct = products.flatMap(m => m )
 
-
+// let topProduct = products.filter(f => f.reviews === 2);
+// console.log(topProduct);
 
 //////////-------------///////////
 
 // Q17. Detect and list products where any variation has zero quantity but is marked available (data inconsistency check).
 
 
-let  listProducts = products.flatMap(f => f.variations.filter(v => v.quantity === 0  && v.isAvailable === true)) ;
+let listProducts = products.flatMap(f => f.variations.filter(v => v.quantity === 0 && v.isAvailable === true));
 if (listProducts.length === 0) {
-  console.log("All products are consistent");
+    console.log("All products are consistent");
 } else {
-  console.log("Inconsistent products found:", listProducts);
+    console.log("Inconsistent products found:", listProducts);
 };
 
 /////////////////==================='''''''''''''''/////////
@@ -240,4 +240,6 @@ let unique = new Set(tag);
 console.log([...unique]);
 
 //////////===============////////////////
+
+
 
